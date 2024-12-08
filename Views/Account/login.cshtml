@@ -1,4 +1,5 @@
-﻿
+﻿@model e_commercedotNet.Models.User
+
 
 @{
     ViewData["Title"] = "Login";
@@ -6,18 +7,32 @@
 
 <h2>@ViewData["Title"]</h2>
 
-<form method="post">
-    <div class="mb-3">
-        <label for="email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="email" name="email" required />
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
     </div>
-    <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" name="password" required />
-    </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+}
 
-<p class="mt-3">
-    Don't have an account? <a href="@Url.Action("Register", "Home")">Register here</a>.
-</p>
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" asp-for="Email" required />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Mot de passe</label>
+        <input type="password" class="form-control" asp-for="Password" required />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Se connecter</button>
+</form>
