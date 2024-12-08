@@ -169,3 +169,5 @@ C:\e-commercedotNet\e-commercedotNet\obj\Debug\net8.0\refint\e-commercedotNet.dl
 C:\e-commercedotNet\e-commercedotNet\obj\Debug\net8.0\e-commercedotNet.pdb
 C:\e-commercedotNet\e-commercedotNet\obj\Debug\net8.0\e-commercedotNet.genruntimeconfig.cache
 C:\e-commercedotNet\e-commercedotNet\obj\Debug\net8.0\ref\e-commercedotNet.dll
+C:\e-commercedotNet\e-commercedotNet\obj\Debug\net8.0\e-commercedotNet.sourcelink.json
+C:\e-commercedotNet\e-commercedotNet\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
