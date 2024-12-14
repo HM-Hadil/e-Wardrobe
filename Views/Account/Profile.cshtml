@@ -1,0 +1,80 @@
+﻿@model e_commercedotNet.Models.User
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+            <div class="position-sticky">
+                <h4 class="mt-4">Menu</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="@Url.Action("Profile", "Account")">
+                            <i class="bi bi-person-circle"></i> Mon Profil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("ViewOrders", "Order")">
+                            <i class="bi bi-box"></i> Mes Commandes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="col-md-9 ms-sm-auto col-lg-10 px-4">
+            <h2>Bienvenue, @Model.Nom @Model.Prenom</h2>
+
+            <div class="card">
+                <div class="card-body">
+                    <h4>Mes Informations Personnelles</h4>
+                    <form method="post" asp-action="UpdateProfile">
+                        <div class="mb-3">
+                            <label for="Email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Nom" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="Nom" name="Nom" value="@Model.Nom" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Prenom" class="form-label">Prénom</label>
+                            <input type="text" class="form-control" id="Prenom" name="Prenom" value="@Model.Prenom" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Password" class="form-label">Mot de Passe</label>
+                            <input type="password" class="form-control" id="Password" name="Password" placeholder="Nouveau mot de passe">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                        @if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @TempData["SuccessMessage"]
+                            </div>
+                        }
+                        else if (TempData["ErrorMessage"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @TempData["ErrorMessage"]
+                            </div>
+                        }
+
+                    </form>
+                </div>
+            </div>
+
+            <hr>
+
+            
+            <!-- Logout Button -->
+            <form method="post" asp-action="Logout" class="mt-4">
+                <button type="submit" class="btn btn-danger">Déconnexion</button>
+            </form>
+        </div>
+    </div>
+</div>

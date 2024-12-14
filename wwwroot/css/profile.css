@@ -1,0 +1,56 @@
+﻿/* wwwroot/css/profile.css */
+body {
+    background-color: #f4f4f9;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    padding-top: 20px;
+    height: 100vh;
+}
+
+    .sidebar a {
+        color: white;
+        text-decoration: none;
+        padding: 15px;
+        display: block;
+    }
+
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+
+.main-content {
+    margin-left: 260px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }

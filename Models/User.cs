@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 namespace e_commercedotNet.Models
 {
     public class User
@@ -20,6 +19,8 @@ namespace e_commercedotNet.Models
 
         [Required(ErrorMessage = "Le mot de passe est requis.")]
         public string Password { get; set; } = null!;  // Utilisation de null! pour éviter l'avertissement CS8618
+
+      
     }
 
 }

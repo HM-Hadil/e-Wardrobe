@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\e-commercedotNet.b4zp4qooik.bundle.scp.css"
     },
     {
+      "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\css\\profile.css",
+      "PackagePath": "staticwebassets\\css\\profile.css"
+    },
+    {
       "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

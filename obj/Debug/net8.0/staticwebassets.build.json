@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7RXVjaJjTUM8EdRj8S3TCJ9h9go3q/BfCNkE1EI/mAM=",
+  "Hash": "DF++uvuc+qZQKSBdQAbz5aLZzfeH/nHdSsanhVWUzgk=",
   "Source": "e-commercedotNet",
   "BasePath": "_content/e-commercedotNet",
   "Mode": "Default",
@@ -57,6 +57,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\e-commercedotNet\\e-commercedotNet\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\e-commercedotNet.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\css\\profile.css",
+      "SourceId": "e-commercedotNet",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\",
+      "BasePath": "_content/e-commercedotNet",
+      "RelativePath": "css/profile#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "hdw0zib54a",
+      "Integrity": "5R6asL2BnvpAN9yWZY8iKxkh9e4rsrzgeN+r0zAGGk4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\profile.css"
     },
     {
       "Identity": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\css\\site.css",
@@ -1320,6 +1341,88 @@
     }
   ],
   "Endpoints": [
+    {
+      "Route": "css/profile.css",
+      "AssetFile": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\css\\profile.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "963"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"5R6asL2BnvpAN9yWZY8iKxkh9e4rsrzgeN+r0zAGGk4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 08 Dec 2024 21:24:12 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-5R6asL2BnvpAN9yWZY8iKxkh9e4rsrzgeN+r0zAGGk4="
+        }
+      ]
+    },
+    {
+      "Route": "css/profile.hdw0zib54a.css",
+      "AssetFile": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\css\\profile.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "963"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"5R6asL2BnvpAN9yWZY8iKxkh9e4rsrzgeN+r0zAGGk4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 08 Dec 2024 21:24:12 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hdw0zib54a"
+        },
+        {
+          "Name": "label",
+          "Value": "css/profile.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-5R6asL2BnvpAN9yWZY8iKxkh9e4rsrzgeN+r0zAGGk4="
+        }
+      ]
+    },
     {
       "Route": "css/site.c2tiyv64ts.css",
       "AssetFile": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\css\\site.css",
