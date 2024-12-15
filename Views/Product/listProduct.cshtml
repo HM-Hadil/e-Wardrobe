@@ -1,0 +1,52 @@
+﻿@model e_commercedotNet.Models.ProductListViewModel
+
+@{
+    ViewData["Title"] = "List of Products";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Stock Quantity</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Products)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Description</td>
+                <td>@product.Price</td>
+                <td>@product.StockQuantity</td>
+                <td>@product.Category</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@product.ProductId" class="btn btn-primary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@product.ProductId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <span>Page @Model.CurrentPage of @Model.TotalPages</span>
+    <br />
+    @for (var i = 1; i <= Model.TotalPages; i++)
+    {
+        if (i == Model.CurrentPage)
+        {
+            <span>[<b>@i</b>]</span>
+        }
+        else
+        {
+            <a asp-action="ListProduct" asp-route-page="@i">[ @i ]</a>
+        }
+    }
+</div>
