@@ -2,6 +2,7 @@
 using e_commercedotNet.Models;
 using e_commercedotNet.data;
 using Microsoft.EntityFrameworkCore;
+using e_commercedotNet.Services.EmailService;
 
 namespace e_commercedotNet.Controllers
 {
@@ -163,6 +164,108 @@ namespace e_commercedotNet.Controllers
 
             return RedirectToAction("Index");
         }
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmPurchase()
+        {
+            var userIdString = HttpContext.Session.GetString("UserId");
+
+            if (string.IsNullOrEmpty(userIdString))
+            {
+                TempData["ErrorMessage"] = "Vous devez être connecté pour confirmer l'achat.";
+                return RedirectToAction("Login", "Account");
+            }
+
+            if (!int.TryParse(userIdString, out int userId))
+            {
+                TempData["ErrorMessage"] = "Erreur de connexion. Veuillez vous reconnecter.";
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Récupérer les articles du panier
+            var cartItems = await _context.CartItems
+                .Include(ci => ci.Product)
+                .Where(ci => ci.UserId == userId)
+                .ToListAsync();
+
+            if (!cartItems.Any())
+            {
+                TempData["ErrorMessage"] = "Votre panier est vide.";
+                return RedirectToAction("Index");
+            }
+
+            var total = cartItems.Sum(ci => ci.Quantity * ci.Product.Price);
+
+            // Passer les informations à la vue de confirmation
+            var confirmationViewModel = new ConfirmationViewModel
+            {
+                UserId = userId,
+                CartItems = cartItems,
+                Total = total
+            };
+
+            // Rediriger vers la page de confirmation
+            return View("Confirmation", confirmationViewModel);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> FinalizePurchase()
+        {
+            var userIdString = HttpContext.Session.GetString("UserId");
+
+            if (string.IsNullOrEmpty(userIdString))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            if (!int.TryParse(userIdString, out int userId))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            // Récupérer les articles du panier
+            var cartItems = await _context.CartItems
+                .Include(ci => ci.Product)
+                .Where(ci => ci.UserId == userId)
+                .ToListAsync();
+
+            if (!cartItems.Any())
+            {
+                TempData["ErrorMessage"] = "Votre panier est vide.";
+                return RedirectToAction("Index");
+            }
+
+            // Logique d'envoi d'email
+            var emailBody = "Merci pour votre commande ! Voici un récapitulatif :\n\n";
+            foreach (var item in cartItems)
+            {
+                emailBody += $"{item.Product.Name} - Quantité: {item.Quantity} - Prix: {item.Quantity * item.Product.Price}€\n";
+            }
+            emailBody += $"\nTotal : {cartItems.Sum(ci => ci.Quantity * ci.Product.Price)}€";
+
+            // Envoyer un email (service fictif pour cet exemple)
+            EmailService.SendEmail("user@example.com", "Confirmation d'achat", emailBody);
+
+            // Nettoyer le panier
+            _context.CartItems.RemoveRange(cartItems);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Votre commande a été confirmée et un email a été envoyé.";
+
+            return RedirectToAction("Index", "Home");
+        }
+
+
+
+
     }
+
+
+
+
 
 }

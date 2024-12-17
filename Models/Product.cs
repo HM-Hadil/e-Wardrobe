@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace e_commercedotNet.Models
 {
@@ -26,7 +27,9 @@ namespace e_commercedotNet.Models
         [Required]
         public string Category { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; } = "";
+        // Ajouter cette propriété pour gérer l'image
+       
 
         // Add collections for relationships
         public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();

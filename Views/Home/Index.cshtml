@@ -71,8 +71,15 @@
             {
                 <div class="col-md-4 mb-4">
                     <div class="card product-card">
-                        <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name">
-                        <div class="card-body">
+                        @if(!string.IsNullOrEmpty(product.ImageUrl))
+                        {
+							<img src="@product.ImageUrl" alt="@product.Name" />
+                        }
+                        else{
+                            <span>aucun image</span>
+
+                        }
+                             <div class="card-body">
                             <h5 class="card-title">@product.Name</h5>
                             <p class="card-text">@product.Description</p>
                             <p class="card-text"><strong>Price:</strong> @product.Price &euro;</p>

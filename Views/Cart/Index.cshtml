@@ -48,6 +48,16 @@
             Votre panier est vide.
         </div>
     }
+
+    <div class="row mt-4">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h3>Total: @ViewBag.Total €</h3>
+            <form asp-action="ConfirmOrder" method="get">
+                <button type="submit" class="btn btn-primary btn-lg">Confirmer la commande</button>
+            </form>
+        </div>
+    </div>
+
 </div>
 
 .table td, .table th {

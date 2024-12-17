@@ -50,7 +50,10 @@
         </select>
         <span asp-validation-for="Category" class="text-danger"></span>
     </div>
-
+    <label>Image</label>
+    <input type="file" name="imageFile" />
+    <img src="@Model.ImageUrl" alt="Current Image" style="max-width: 150px;" />
+    </div>
     <button type="submit" class="btn btn-primary">Enregistrer</button>
     <a asp-action="ListProduct" class="btn btn-secondary">Annuler</a>
 </form>

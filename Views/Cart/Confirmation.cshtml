@@ -1,0 +1,23 @@
+﻿@model e_commercedotNet.Models.ConfirmationViewModel
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Confirmation de l'achat</h2>
+
+    <h4>Merci pour votre commande, voici un récapitulatif :</h4>
+
+    <ul class="list-group mb-4">
+        @foreach (var item in Model.CartItems)
+        {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                @item.Product.Name
+                    <span>Quantité: @item.Quantity | Prix: @(item.Quantity * item.Product.Price) €</span>
+                </li>
+        }
+    </ul>
+
+    <h4 class="text-right">Total : @Model.Total €</h4>
+
+    <form method="post" asp-action="FinalizePurchase">
+        <button type="submit" class="btn btn-success btn-lg">Je confirme mon achat</button>
+    </form>
+</div>

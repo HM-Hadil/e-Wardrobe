@@ -28,17 +28,41 @@ namespace e_commercedotNet.Controllers
         // POST: Product/Create
         [HttpPost("Create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Product product)
+        public async Task<IActionResult> Create(Product product, IFormFile imageFile)
         {
             if (ModelState.IsValid)
             {
+                if (imageFile != null && imageFile.Length > 0)
+                {
+                    product.ImageUrl = "/images/" + Path.GetFileName(imageFile.FileName);
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                    Directory.CreateDirectory(uploadsFolder);
+                    var filePath = Path.Combine(uploadsFolder, Path.GetFileName(imageFile.FileName));
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(stream);
+                    }
+                }
+
                 _context.Products.Add(product); // Add the product to the database
-                _context.SaveChanges(); // Save changes to the database
+                await _context.SaveChangesAsync();
                 TempData["SuccessMessage"] = "Produit ajouté avec succès."; // Success message
                 return RedirectToAction("ListProduct"); // Redirect to ListProduct after successful creation
             }
             return View("CreateProduct", product); // Return the view with validation errors
         }
+
+
+
+
+
+
+
+
+
+
+
         // GET: Product/ListProduct
         [HttpGet("ListProduct")] // This route should be unique
         public IActionResult ListProduct(int page = 1)
@@ -65,6 +89,10 @@ namespace e_commercedotNet.Controllers
 
             return View(model);
         }
+       
+
+
+
         [HttpGet("Edit/{id}")]
         public IActionResult Edit(int id)
         {
@@ -75,9 +103,11 @@ namespace e_commercedotNet.Controllers
             }
             return View(product); // Ensure the correct product is passed
         }
+
+
         [HttpPost("Edit/{id}")]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Product product)
+        public async Task<IActionResult> Edit(int id, Product product, IFormFile? imageFile)
         {
             if (id != product.ProductId)
             {
@@ -99,16 +129,32 @@ namespace e_commercedotNet.Controllers
                 existingProduct.StockQuantity = product.StockQuantity;
                 existingProduct.Category = product.Category;
 
+                if (imageFile != null && imageFile.Length > 0)
+                {
+                    var fileName = Path.GetFileName(imageFile.FileName);
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                    Directory.CreateDirectory(uploadsFolder);
+                    var filePath = Path.Combine(uploadsFolder, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(stream);
+                    }
+
+                    existingProduct.ImageUrl = "/images/" + fileName;
+                }
+
                 // Save changes to the database
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 TempData["SuccessMessage"] = "Produit modifié avec succès.";
+
                 return RedirectToAction("ListProduct");
             }
 
-            // If the model state is invalid, return the view with the current product data
-            return View(product);
+            return View(product); // Return view with validation errors
         }
+
 
         // GET: Product/Delete/{id}
         [HttpGet("Delete/{id}")]
@@ -150,7 +196,7 @@ namespace e_commercedotNet.Controllers
 
             return View(product);  // Passe le produit à la vue
         }
-        
-        
+
+
     }
 }

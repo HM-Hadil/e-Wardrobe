@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3BgVusTjAbhWIIyqD4GLzmlmS60e4Ceua4GScZO8ZTg=",
+  "Hash": "UBQsTCoE4uoIJDCRv1YqJpu61LNz8z1Iqgwx3+XXIQQ=",
   "Source": "e-commercedotNet",
   "BasePath": "_content/e-commercedotNet",
   "Mode": "Default",
@@ -120,6 +120,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\runtime.jpg",
+      "SourceId": "e-commercedotNet",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\",
+      "BasePath": "_content/e-commercedotNet",
+      "RelativePath": "images/runtime#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "wfxkvifybb",
+      "Integrity": "tKJplBILZ4ep4t9hP3jjjD8kAinuImOvXZJ3qxkUEHo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\runtime.jpg"
     },
     {
       "Identity": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\js\\site.js",
@@ -1748,6 +1769,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-Jtxf9L+5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="
+        }
+      ]
+    },
+    {
+      "Route": "images/runtime.jpg",
+      "AssetFile": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\runtime.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73654"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"tKJplBILZ4ep4t9hP3jjjD8kAinuImOvXZJ3qxkUEHo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 17 Dec 2024 12:03:57 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-tKJplBILZ4ep4t9hP3jjjD8kAinuImOvXZJ3qxkUEHo="
+        }
+      ]
+    },
+    {
+      "Route": "images/runtime.wfxkvifybb.jpg",
+      "AssetFile": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\runtime.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "73654"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"tKJplBILZ4ep4t9hP3jjjD8kAinuImOvXZJ3qxkUEHo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 17 Dec 2024 12:03:57 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "wfxkvifybb"
+        },
+        {
+          "Name": "label",
+          "Value": "images/runtime.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-tKJplBILZ4ep4t9hP3jjjD8kAinuImOvXZJ3qxkUEHo="
         }
       ]
     },
