@@ -1,0 +1,70 @@
+﻿@model IEnumerable<e_commercedotNet.Models.CartItem>
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Mon Panier</h2>
+
+    @if (Model.Any())
+    {
+        <form method="post" asp-action="UpdateCart">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Produit</th>
+                            <th>Quantité</th>
+                            <th>Prix</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Product.Name</td>
+                                <td>
+                                    <input type="number" name="quantities[@item.CartItemId]" value="@item.Quantity" min="1" class="form-control w-50" />
+                                </td>
+                                <td>@(item.Quantity * item.Product.Price) €</td>
+                                <td>
+                                    <button type="submit" name="removeItemId" value="@item.CartItemId" class="btn btn-danger">Supprimer</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <h3>Total: @ViewBag.Total €</h3>
+                    <button type="submit" class="btn btn-success btn-lg">Mettre à jour le panier</button>
+                </div>
+            </div>
+        </form>
+    }
+    else
+    {
+        <div class="alert alert-info" role="alert">
+            Votre panier est vide.
+        </div>
+    }
+</div>
+
+.table td, .table th {
+    padding: 12px 15px;
+}
+
+/* Button styling */
+.btn-lg {
+    font-size: 1.25rem;
+    padding: 10px 20px;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+/* Input fields for quantity */
+.form-control {
+    max-width: 100px;
+}

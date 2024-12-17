@@ -1,15 +1,54 @@
 ﻿@model e_commercedotNet.Models.Product
 
-<div class="product-detail">
-    <h1>@Model.Name</h1>
-    <img src="@Model.ImageUrl" alt="@Model.Name" />
-    <p>@Model.Description</p>
-    <p><strong>Price:</strong> @Model.Price €</p>
+<div class="container product-detail">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Model.ImageUrl" class="img-fluid rounded" alt="@Model.Name">
+        </div>
+        <div class="col-md-6">
+            <h1 class="mb-4">@Model.Name</h1>
+            <p class="lead">@Model.Description</p>
 
-    <form method="post" action="@Url.Action("AddToCart", "Product")">
-        <input type="hidden" name="productId" value="@Model.ProductId" />
-        <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" value="1" min="1" />
-        <button type="submit" class="btn btn-primary">Add to Cart</button>
-    </form>
+            <div class="product-info mb-4">
+                <p><strong>Price:</strong> @Model.Price €</p>
+                <p><strong>Category:</strong> @Model.Category</p>
+                <p><strong>Available Stock:</strong> @Model.StockQuantity</p>
+            </div>
+            <form method="post" action="@Url.Action("AddToCart", "Cart")" class="add-to-cart-form">
+                <input type="hidden" name="productId" value="@Model.ProductId" />
+                <div class="form-group mb-3">
+                    <label for="quantity" class="form-label">Quantity:</label>
+                    <input type="number"
+                           id="quantity"
+                           name="quantity"
+                           class="form-control"
+                           value="1"
+                           min="1"
+                           max="@Model.StockQuantity" />
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg">
+                    Add to Cart
+                </button>
+            </form>
+        </div>
+    </div>
 </div>
+
+<style>
+    .product-detail {
+        margin-top: 2rem;
+        padding: 2rem;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+    }
+
+    .product-info {
+        background-color: #e9ecef;
+        padding: 1rem;
+        border-radius: 5px;
+    }
+
+    .add-to-cart-form {
+        margin-top: 1rem;
+    }
+</style>

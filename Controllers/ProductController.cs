@@ -141,13 +141,16 @@ namespace e_commercedotNet.Controllers
         // Voir les détails du produit
         public IActionResult Details(int id)
         {
-            var product = _context.Products.Find(id);
+            var product = _context.Products.FirstOrDefault(p => p.ProductId == id);
             if (product == null)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "Produit non trouvé.";
+                return RedirectToAction("Index", "Home");
             }
-            return View(product); // Affiche la vue Details avec les informations du produit
-        }
 
+            return View(product);  // Passe le produit à la vue
+        }
+        
+        
     }
 }

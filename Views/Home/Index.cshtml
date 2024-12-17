@@ -5,7 +5,16 @@
     var categoryFilter = ViewData["Category"]?.ToString();
     var priceMinFilter = ViewData["PriceMin"]?.ToString();
     var priceMaxFilter = ViewData["PriceMax"]?.ToString();
+}@{
+    var errorMessage = TempData["ErrorMessage"] as string;
 }
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">
+        @errorMessage
+    </div>
+}
+
 
 <div class="text-center">
     <h1 class="display-4">Welcome to Our Product Store</h1>
@@ -68,6 +77,8 @@
                             <p class="card-text">@product.Description</p>
                             <p class="card-text"><strong>Price:</strong> @product.Price &euro;</p>
                             <p class="card-text"><strong>Category:</strong> @product.Category</p>
+                            <a href="@Url.Action("Details", "Product", new { id = product.ProductId })">Voir les détails</a>
+
                         </div>
                     </div>
                 </div>

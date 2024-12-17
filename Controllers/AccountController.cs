@@ -14,11 +14,17 @@ namespace e_commercedotNet.Controllers
     public class AccountController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AccountController(ApplicationDbContext context)
+
+        public AccountController(
+      ApplicationDbContext context,
+      IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
+
 
         // GET: Account/Register
         [HttpGet("Register")]
@@ -50,7 +56,6 @@ namespace e_commercedotNet.Controllers
         {
             return View();
         }
-
         // POST: Account/Login
         [HttpPost("Login")]
         public async Task<IActionResult> Login(string email, string password)
@@ -64,10 +69,10 @@ namespace e_commercedotNet.Controllers
             }
 
             var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.Email),
-                new Claim("FullName", $"{user.Prenom} {user.Nom}")
-            };
+    {
+        new Claim(ClaimTypes.Name, user.Email),
+        new Claim("FullName", $"{user.Prenom} {user.Nom}")
+    };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
@@ -77,8 +82,12 @@ namespace e_commercedotNet.Controllers
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
+            // Ajout de l'ID utilisateur à la session
+            HttpContext.Session.SetString("UserId", user.id.ToString());
+
             return RedirectToAction("Profile", "Account");
         }
+
 
         // GET: Account/Profile
         [HttpGet("Profile")]

@@ -11,8 +11,11 @@ namespace e_commercedotNet.data
         }
 
         // Déclarez vos tables ici
-        public DbSet<User> Users { get; set; }
+        // Déclarez vos tables ici
+        public DbSet<User> Users { get; set; } // Table des utilisateurs
         public DbSet<Product> Products { get; set; } // Table des produits
+        public DbSet<CartItem> CartItems { get; set; }
+
 
     }
 }

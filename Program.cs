@@ -9,10 +9,21 @@ var builder = WebApplication.CreateBuilder(args);
 // Ajouter les services aux conteneurs
 builder.Services.AddControllersWithViews();
 
+// Ajouter le support pour la session
+builder.Services.AddDistributedMemoryCache(); // Requis pour la gestion des sessions
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Durée de timeout de la session
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 // Configurer le DbContext pour utiliser SQL Server
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("connection_toDb")));
 
+// Ajouter le support pour HttpContextAccessor
+builder.Services.AddHttpContextAccessor();
 
 // Configurer l'authentification par cookies
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -34,12 +45,14 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 
 // Ajouter l'authentification et l'autorisation
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Ajouter le middleware de session
+app.UseSession();
 
 // Configurer les routes par défaut
 app.MapControllerRoute(

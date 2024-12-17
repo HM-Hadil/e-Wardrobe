@@ -28,13 +28,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\e-commercedotNet.b4zp4qooik.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"b4zp4qooik"},{"Name":"integrity","Value":"sha256-9dXQ9C1AHlyUX68j5IeseDuaMa\u002BkdyY5TqJ\u002Bj1CTz5M="},{"Name":"label","Value":"_content/e-commercedotNet/e-commercedotNet.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1134"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00229dXQ9C1AHlyUX68j5IeseDuaMa\u002BkdyY5TqJ\u002Bj1CTz5M=\u0022"},{"Name":"Last-Modified","Value":"Sun, 08 Dec 2024 13:26:59 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1134"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00229dXQ9C1AHlyUX68j5IeseDuaMa\u002BkdyY5TqJ\u002Bj1CTz5M=\u0022"},{"Name":"Last-Modified","Value":"Mon, 16 Dec 2024 23:54:30 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/e-commercedotNet/e-commercedotNet.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\e-commercedotNet.b4zp4qooik.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-9dXQ9C1AHlyUX68j5IeseDuaMa\u002BkdyY5TqJ\u002Bj1CTz5M="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1134"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00229dXQ9C1AHlyUX68j5IeseDuaMa\u002BkdyY5TqJ\u002Bj1CTz5M=\u0022"},{"Name":"Last-Modified","Value":"Sun, 08 Dec 2024 13:26:59 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1134"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u00229dXQ9C1AHlyUX68j5IeseDuaMa\u002BkdyY5TqJ\u002Bj1CTz5M=\u0022"},{"Name":"Last-Modified","Value":"Mon, 16 Dec 2024 23:54:30 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/e-commercedotNet/favicon.61n19gt1b8.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>
