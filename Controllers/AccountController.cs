@@ -56,7 +56,6 @@ namespace e_commercedotNet.Controllers
         {
             return View();
         }
-        // POST: Account/Login
         [HttpPost("Login")]
         public async Task<IActionResult> Login(string email, string password)
         {
@@ -85,6 +84,7 @@ namespace e_commercedotNet.Controllers
             // Ajout de l'ID utilisateur à la session
             HttpContext.Session.SetString("UserId", user.id.ToString());
 
+            // Redirection vers la page Profile
             return RedirectToAction("Profile", "Account");
         }
 
@@ -177,14 +177,16 @@ namespace e_commercedotNet.Controllers
             TempData["SuccessMessage"] = "Votre profil a été mis à jour avec succès!";
             return RedirectToAction("Profile");
         }
-        // Action de déconnexion
         [HttpPost("Logout")]
-        [ValidateAntiForgeryToken] // Pour éviter les attaques CSRF
         public async Task<IActionResult> Logout()
         {
+            // Déconnexion de l'utilisateur
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login", "Account");
+
+            // Redirection vers la page d'accueil après la déconnexion
+            return RedirectToAction("Index", "Home");
         }
+
 
     }
 

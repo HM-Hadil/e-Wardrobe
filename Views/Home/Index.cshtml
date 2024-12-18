@@ -5,7 +5,9 @@
     var categoryFilter = ViewData["Category"]?.ToString();
     var priceMinFilter = ViewData["PriceMin"]?.ToString();
     var priceMaxFilter = ViewData["PriceMax"]?.ToString();
-}@{
+}
+
+@{
     var errorMessage = TempData["ErrorMessage"] as string;
 }
 @if (!string.IsNullOrEmpty(errorMessage))
@@ -15,15 +17,14 @@
     </div>
 }
 
-
-<div class="text-center">
+<div class="text-center" style="margin-top:2rem">
     <h1 class="display-4">Welcome to Our Product Store</h1>
     <p>Explore our range of products!</p>
 </div>
+
 <!-- Filter Section -->
 <div class="row mb-3">
     <div class="col-md-12">
-        <!-- Form with asp-action and asp-controller tag helpers -->
         <form method="get" asp-action="Index" asp-controller="Home">
             <div class="row">
                 <!-- Category Filter -->
@@ -52,7 +53,7 @@
                 </div>
 
                 <!-- Apply Filters Button -->
-                <div class="col-md-3 d-flex align-items-end">
+                <div class="col-md-3 d-flex align-items-end" >
                     <button type="submit" class="btn btn-success btn-lg w-100">Apply Filters</button>
                 </div>
             </div>
@@ -71,21 +72,20 @@
             {
                 <div class="col-md-4 mb-4">
                     <div class="card product-card">
-                        @if(!string.IsNullOrEmpty(product.ImageUrl))
+                        @if (!string.IsNullOrEmpty(product.ImageUrl))
                         {
-							<img src="@product.ImageUrl" alt="@product.Name" />
+                            <img src="@product.ImageUrl" alt="@product.Name" class="card-img-top product-image" />
                         }
-                        else{
-                            <span>aucun image</span>
-
+                        else
+                        {
+                            <div class="no-image">No image available</div>
                         }
-                             <div class="card-body">
+                        <div class="card-body">
                             <h5 class="card-title">@product.Name</h5>
                             <p class="card-text">@product.Description</p>
                             <p class="card-text"><strong>Price:</strong> @product.Price &euro;</p>
                             <p class="card-text"><strong>Category:</strong> @product.Category</p>
-                            <a href="@Url.Action("Details", "Product", new { id = product.ProductId })">Voir les détails</a>
-
+                            <a href="@Url.Action("Details", "Product", new { id = product.ProductId })" class="btn btn-primary">Voir les détails</a>
                         </div>
                     </div>
                 </div>
@@ -100,86 +100,143 @@ else
 
 <!-- Custom Styles -->
 <style>
-    .product-card {
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease-in-out;
+    /* Color Palette */
+    :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --accent-color: #2ecc71;
+        --text-color: #333;
+        --background-color: #f4f6f7;
+        --card-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
     }
 
-    .product-card:hover {
-        transform: scale(1.05);
+    body {
+        background-color: var(--background-color);
+        font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
     }
 
-    .card-img-top {
-        max-height: 200px;
-        object-fit: cover;
-        border-bottom: 2px solid #ddd;
+    /* Welcome Section */
+    .text-center {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 2rem;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        box-shadow: var(--card-shadow);
+    }
+
+        .text-center h1 {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
+        }
+
+        .text-center p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+    /* Filter Section */
+    .filter-section {
+        background-color: white;
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: var(--card-shadow);
+        margin-bottom: 2rem;
     }
 
     .filter-label {
-        font-weight: bold;
-        color: #333;
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
     }
 
     .form-control {
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        padding: 0.75rem;
+        border: 2px solid rgba(44, 62, 80, 0.1);
+        transition: all 0.3s ease;
+        border-radius: 6px;
     }
 
-    .form-control:focus {
-        border-color: #007bff;
-        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+    /* Product Cards */
+    .product-card {
+        border: none;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        box-shadow: var(--card-shadow);
+    }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+        }
+
+    .card-img-top {
+        height: 250px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .product-card:hover .card-img-top {
+        transform: scale(1.05);
+    }
+
+    .no-image {
+        background-color: #e9ecef;
+        color: var(--primary-color);
+        font-style: italic;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+        background-color: white;
+    }
+
+    .card-title {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+    }
+
+    .card-text {
+        color: #6c757d;
+    }
+
+    /* Buttons */
+    .btn-success, .btn-primary {
+        border-radius: 6px;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        padding: 0.75rem 1.5rem;
+        transition: all 0.3s ease;
     }
 
     .btn-success {
-        background-color: #28a745;
-        border-color: #28a745;
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
     }
 
-    .btn-success:hover {
-        background-color: #218838;
-        border-color: #1e7e34;
+        .btn-success:hover {
+            background-color: #27ae60;
+            border-color: #27ae60;
+        }
+
+    .btn-primary {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
     }
 
-    .row.mb-3 {
-        margin-top: 20px;
-    }
-    
-    .col-md-3 {
-        margin-bottom: 10px;
-    }
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
 
-    .col-md-3 .form-group label {
-        font-weight: bold;
-        font-size: 1rem;
-    }
 
-    .card-body h5 {
-        font-size: 1.25rem;
-        color: #333;
-    }
-
-    .card-body p {
-        color: #666;
-    }
-
-    .text-center h1 {
-        color: #333;
-        font-family: 'Arial', sans-serif;
-    }
-
-    .text-center p {
-        color: #777;
-    }
-
-    /* Ensure form fields have consistent height and spacing */
-    .form-group input, .form-group select {
-        height: 45px;
-    }
-
-    .form-group .form-control {
-        margin-bottom: 15px;
-    }
 </style>

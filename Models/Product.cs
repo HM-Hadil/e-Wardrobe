@@ -16,7 +16,7 @@ namespace e_commercedotNet.Models
 
         [Required]
         [Range(0, double.MaxValue)]
-        [Precision(18, 2)] // Set precision explicitly
+        [Precision(18, 2)] 
         public decimal Price { get; set; }
 
         [Required]
@@ -28,10 +28,8 @@ namespace e_commercedotNet.Models
         public string Category { get; set; }
 
         public string? ImageUrl { get; set; } = "";
-        // Ajouter cette propriété pour gérer l'image
        
 
-        // Add collections for relationships
         public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
     }
 }

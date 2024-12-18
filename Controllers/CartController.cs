@@ -2,7 +2,6 @@
 using e_commercedotNet.Models;
 using e_commercedotNet.data;
 using Microsoft.EntityFrameworkCore;
-using e_commercedotNet.Services.EmailService;
 
 namespace e_commercedotNet.Controllers
 {
@@ -126,49 +125,78 @@ namespace e_commercedotNet.Controllers
         {
             var userId = HttpContext.Session.GetString("UserId");
 
+            // Vérifier si l'utilisateur est connecté
             if (string.IsNullOrEmpty(userId))
             {
                 TempData["ErrorMessage"] = "Vous devez être connecté pour gérer votre panier.";
                 return RedirectToAction("Login", "Account");
             }
 
+            // Vérifier si l'ID de l'utilisateur est valide
             if (!int.TryParse(userId, out int parsedUserId))
             {
                 TempData["ErrorMessage"] = "Erreur de connexion. Veuillez vous reconnecter.";
                 return RedirectToAction("Login", "Account");
             }
 
-            // If an item needs to be removed
+            // Gestion de la suppression d'un article du panier
             if (removeItemId.HasValue)
             {
-                var cartItem = await _context.CartItems.FirstOrDefaultAsync(ci => ci.CartItemId == removeItemId.Value && ci.UserId == parsedUserId);
+                var cartItem = await _context.CartItems
+                    .FirstOrDefaultAsync(ci => ci.CartItemId == removeItemId.Value && ci.UserId == parsedUserId);
+
                 if (cartItem != null)
                 {
                     _context.CartItems.Remove(cartItem);
                     await _context.SaveChangesAsync();
                     TempData["SuccessMessage"] = "Produit supprimé du panier.";
                 }
-            }
-
-            // If quantities need to be updated
-            foreach (var item in quantities)
-            {
-                var cartItem = await _context.CartItems.FirstOrDefaultAsync(ci => ci.CartItemId == item.Key && ci.UserId == parsedUserId);
-                if (cartItem != null)
+                else
                 {
-                    cartItem.Quantity = item.Value;
+                    TempData["ErrorMessage"] = "L'article n'a pas été trouvé dans votre panier.";
                 }
             }
 
+            // Mise à jour des quantités des produits dans le panier
+            foreach (var item in quantities)
+            {
+                var cartItem = await _context.CartItems
+                    .FirstOrDefaultAsync(ci => ci.CartItemId == item.Key && ci.UserId == parsedUserId);
+
+                if (cartItem != null)
+                {
+                    if (item.Value < 1) // Vérification que la quantité est valide
+                    {
+                        TempData["ErrorMessage"] = "La quantité doit être au moins de 1.";
+                        return RedirectToAction("Index");
+                    }
+
+                    cartItem.Quantity = item.Value;
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = $"L'article avec l'ID {item.Key} n'existe pas dans votre panier.";
+                    return RedirectToAction("Index");
+                }
+            }
+
+            // Sauvegarder les modifications dans la base de données
             await _context.SaveChangesAsync();
 
+            // Calculer le nombre total d'articles dans le panier
+            var cartItems = await _context.CartItems.Where(ci => ci.UserId == parsedUserId).ToListAsync();
+            ViewBag.CartItemCount = cartItems.Sum(ci => ci.Quantity);
+
+            TempData["SuccessMessage"] = "Votre panier a été mis à jour avec succès.";
+
+            // Rediriger vers la page du panier avec les mises à jour
             return RedirectToAction("Index");
         }
 
 
 
-
         [HttpPost]
+        [Route("ConfirmPurchase")]
         public async Task<IActionResult> ConfirmPurchase()
         {
             var userIdString = HttpContext.Session.GetString("UserId");
@@ -210,8 +238,6 @@ namespace e_commercedotNet.Controllers
             // Rediriger vers la page de confirmation
             return View("Confirmation", confirmationViewModel);
         }
-
-
         [HttpPost]
         public async Task<IActionResult> FinalizePurchase()
         {
@@ -239,29 +265,15 @@ namespace e_commercedotNet.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Logique d'envoi d'email
-            var emailBody = "Merci pour votre commande ! Voici un récapitulatif :\n\n";
-            foreach (var item in cartItems)
-            {
-                emailBody += $"{item.Product.Name} - Quantité: {item.Quantity} - Prix: {item.Quantity * item.Product.Price}€\n";
-            }
-            emailBody += $"\nTotal : {cartItems.Sum(ci => ci.Quantity * ci.Product.Price)}€";
-
-            // Envoyer un email (service fictif pour cet exemple)
-            EmailService.SendEmail("user@example.com", "Confirmation d'achat", emailBody);
-
             // Nettoyer le panier
             _context.CartItems.RemoveRange(cartItems);
             await _context.SaveChangesAsync();
 
-            TempData["SuccessMessage"] = "Votre commande a été confirmée et un email a été envoyé.";
+            TempData["SuccessMessage"] = "Votre commande a été confirmée.";
 
+            // Redirection vers la page d'accueil
             return RedirectToAction("Index", "Home");
         }
-
-
-
-
     }
 
 

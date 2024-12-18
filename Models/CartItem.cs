@@ -7,10 +7,10 @@ namespace e_commercedotNet.Models
     {
         [Key]
         public int CartItemId { get; set; }
-        public int UserId { get; set; } // Clé étrangère vers l'utilisateur
-        public int ProductId { get; set; } // Clé étrangère vers le produit
+        public int UserId { get; set; } 
+        public int ProductId { get; set; } 
         public int Quantity { get; set; }
-        public User User { get; set; } // Navigation property
+        public User User { get; set; } 
         public Product Product { get; set; } 
     }
     }

@@ -4,7 +4,6 @@
     ViewData["Title"] = "Modifier le produit";
 }
 
-<h2>@ViewData["Title"]</h2>
 
 @if (TempData["SuccessMessage"] != null)
 {
@@ -13,51 +12,272 @@
     </div>
 }
 
-<form asp-action="Edit" asp-route-id="@Model.ProductId" method="post">
-    @Html.AntiForgeryToken()
+<div class="container product-edit-container">
+    <h2 class="product-edit-title">@ViewData["Title"]</h2>
 
-    <input type="hidden" asp-for="ProductId" />
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
 
-    <div class="form-group">
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
+    <form asp-action="Edit" asp-route-id="@Model.ProductId" method="post" class="product-edit-form">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="ProductId" />
 
-    <div class="form-group">
-        <label asp-for="Description" class="form-label"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Price" class="form-label"></label>
-        <input asp-for="Price" type="number" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="StockQuantity" class="form-label"></label>
-        <input asp-for="StockQuantity" type="number" class="form-control" />
-        <span asp-validation-for="StockQuantity" class="text-danger"></span>
-    </div>
+        <div class="form-group">
+            <label asp-for="Price" class="form-label"></label>
+            <input asp-for="Price" type="number" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
 
-    <div class="form-group">
-        <label asp-for="Category" class="form-label"></label>
-        <select asp-for="Category" class="form-control">
-            <option value="Homme" selected="@((Model.Category == "Homme").ToString())">Homme</option>
-            <option value="Femme" selected="@((Model.Category == "Femme").ToString())">Femme</option>
-        </select>
-        <span asp-validation-for="Category" class="text-danger"></span>
-    </div>
-    <label>Image</label>
-    <input type="file" name="imageFile" />
-    <img src="@Model.ImageUrl" alt="Current Image" style="max-width: 150px;" />
-    </div>
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
-    <a asp-action="ListProduct" class="btn btn-secondary">Annuler</a>
-</form>
+        <div class="form-group">
+            <label asp-for="StockQuantity" class="form-label"></label>
+            <input asp-for="StockQuantity" type="number" class="form-control" />
+            <span asp-validation-for="StockQuantity" class="text-danger"></span>
+        </div>
 
+        <div class="form-group">
+            <label asp-for="Category" class="form-label"></label>
+            <select asp-for="Category" class="form-control">
+                <option value="Homme" selected="@((Model.Category == "Homme").ToString())">Homme</option>
+                <option value="Femme" selected="@((Model.Category == "Femme").ToString())">Femme</option>
+            </select>
+            <span asp-validation-for="Category" class="text-danger"></span>
+        </div>
+
+        <div class="product-image-upload">
+            <div>
+                <label>Image</label>
+                <input type="file" name="imageFile" class="form-control" />
+            </div>
+            <img src="@Model.ImageUrl" alt="Current Image" class="product-image-preview" />
+        </div>
+
+        <div class="product-edit-actions">
+            <button type="submit" class="btn btn-primary btn-save-product">Enregistrer</button>
+            <a asp-action="ListProduct" class="btn btn-secondary btn-cancel-edit">Annuler</a>
+        </div>
+    </form>
+</div>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+<style>
+    /* Color Palette and Global Variables */
+    :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --accent-color: #2ecc71;
+        --background-color: #f4f6f7;
+        --text-color: #333;
+        --border-color: #e0e4e8;
+        --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Edit Product Page Styles */
+    .product-edit-container {
+        background-color: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: var(--card-shadow);
+        max-width: 600px;
+        margin: 2rem auto;
+    }
+
+    .product-edit-title {
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 3px solid var(--secondary-color);
+        text-align: center;
+    }
+
+    .product-edit-form .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .product-edit-form .form-label {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .product-edit-form .form-control {
+        border: 2px solid var(--border-color);
+        border-radius: 6px;
+        padding: 0.75rem;
+        transition: all 0.3s ease;
+    }
+
+        .product-edit-form .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+    .product-edit-form .text-danger {
+        color: #e74c3c !important;
+        font-size: 0.9rem;
+        margin-top: 0.25rem;
+    }
+
+    .product-image-upload {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .product-image-preview {
+        max-width: 150px;
+        border-radius: 8px;
+        box-shadow: var(--card-shadow);
+    }
+
+    .product-edit-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1.5rem;
+    }
+
+    .btn-save-product,
+    .btn-cancel-edit {
+        border-radius: 6px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        padding: 0.75rem 1.5rem;
+    }
+
+    .btn-save-product {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: white;
+    }
+
+        .btn-save-product:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+
+    .btn-cancel-edit {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: white;
+    }
+
+        .btn-cancel-edit:hover {
+            background-color: #545b62;
+            border-color: #545b62;
+        }
+
+    /* Product Details Page Styles */
+    .product-detail-container {
+        background-color: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: var(--card-shadow);
+        max-width: 1100px;
+        margin: 2rem auto;
+    }
+
+    .product-detail-image {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        transition: transform 0.3s ease;
+    }
+
+        .product-detail-image:hover {
+            transform: scale(1.02);
+        }
+
+    .product-detail-content {
+        padding-left: 2rem;
+    }
+
+    .product-detail-title {
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-bottom: 1rem;
+        border-bottom: 3px solid var(--secondary-color);
+        padding-bottom: 0.5rem;
+    }
+
+    .product-detail-description {
+        color: #6c757d;
+        margin-bottom: 1.5rem;
+    }
+
+    .product-detail-info {
+        background-color: var(--background-color);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+        .product-detail-info p {
+            margin-bottom: 0.75rem;
+            color: var(--primary-color);
+        }
+
+            .product-detail-info p strong {
+                display: inline-block;
+                width: 150px;
+                color: var(--text-color);
+            }
+
+    .add-to-cart-form {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 1.5rem;
+    }
+
+    .btn-add-to-cart {
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
+        color: white;
+        border-radius: 6px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        padding: 0.75rem 1.5rem;
+        width: 100%;
+    }
+
+        .btn-add-to-cart:hover {
+            background-color: #27ae60;
+            border-color: #27ae60;
+        }
+
+    .quantity-input {
+        border: 2px solid var(--border-color);
+        border-radius: 6px;
+        padding: 0.75rem;
+        transition: all 0.3s ease;
+        text-align: center;
+    }
+
+        .quantity-input:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+</style>

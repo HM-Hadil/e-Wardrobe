@@ -1,6 +1,39 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
+@{
+    ViewData["Title"] = "Politique de confidentialité";
+}
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container mt-5">
+    <h1 class="mb-4">@ViewData["Title"]</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Protection de vos données personnelles</h5>
+            <p class="card-text">
+                Chez Votre Boutique E-Commerce, nous prenons la confidentialité de vos données très au sérieux.
+                Cette politique décrit comment nous collectons, utilisons et protégeons vos informations personnelles.
+            </p>
+
+            <h6>Collecte des données</h6>
+            <ul>
+                <li>Informations personnelles lors de la création de compte</li>
+                <li>Données de navigation et d'achat</li>
+                <li>Informations de paiement sécurisées</li>
+            </ul>
+
+            <h6>Utilisation des données</h6>
+            <p>Vos données sont utilisées uniquement pour :</p>
+            <ul>
+                <li>Traiter vos commandes</li>
+                <li>Améliorer notre service client</li>
+                <li>Personnaliser votre expérience d'achat</li>
+            </ul>
+
+            <div class="alert alert-info">
+                <strong>Vos droits :</strong> Vous pouvez à tout moment demander l'accès, la modification ou la suppression de vos données personnelles.
+            </div>
+        </div>
+    </div>
+</div>

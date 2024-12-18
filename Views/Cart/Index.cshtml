@@ -1,14 +1,13 @@
 ﻿@model IEnumerable<e_commercedotNet.Models.CartItem>
 
-<div class="container mt-5">
-    <h2 class="mb-4 text-center">Mon Panier</h2>
-
+<div class="container cart-container">
+    <h2 class="cart-title">Mon Panier</h2>
     @if (Model.Any())
     {
         <form method="post" asp-action="UpdateCart">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered">
-                    <thead class="thead-dark">
+                <table class="table cart-table">
+                    <thead>
                         <tr>
                             <th>Produit</th>
                             <th>Quantité</th>
@@ -22,59 +21,223 @@
                             <tr>
                                 <td>@item.Product.Name</td>
                                 <td>
-                                    <input type="number" name="quantities[@item.CartItemId]" value="@item.Quantity" min="1" class="form-control w-50" />
+                                    <input type="number" name="quantities[@item.CartItemId]" value="@item.Quantity" min="1" class="form-control cart-quantity-input" />
                                 </td>
                                 <td>@(item.Quantity * item.Product.Price) €</td>
                                 <td>
-                                    <button type="submit" name="removeItemId" value="@item.CartItemId" class="btn btn-danger">Supprimer</button>
+                                    <button type="submit" name="removeItemId" value="@item.CartItemId" class="btn btn-danger btn-cart-remove">Supprimer</button>
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
             </div>
-
             <div class="row mt-4">
                 <div class="col-12 d-flex justify-content-between align-items-center">
-                    <h3>Total: @ViewBag.Total €</h3>
-                    <button type="submit" class="btn btn-success btn-lg">Mettre à jour le panier</button>
+                    <h3 class="cart-total">Total: @ViewBag.Total €</h3>
+                    <button type="submit" class="btn btn-success btn-cart-update">Mettre à jour le panier</button>
                 </div>
             </div>
         </form>
     }
     else
     {
-        <div class="alert alert-info" role="alert">
+        <div class="cart-empty-message">
             Votre panier est vide.
         </div>
     }
-
     <div class="row mt-4">
-        <div class="col-12 d-flex justify-content-between align-items-center">
-            <h3>Total: @ViewBag.Total €</h3>
-            <form asp-action="ConfirmOrder" method="get">
-                <button type="submit" class="btn btn-primary btn-lg">Confirmer la commande</button>
+        <div class="col-12">
+            <form method="post" asp-action="ConfirmPurchase">
+                <button type="submit" class="btn btn-primary btn-purchase-confirm">Confirmer l'achat</button>
             </form>
         </div>
     </div>
-
 </div>
+<style>
+    /* Global Variables */
+    :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --accent-color: #2ecc71;
+        --background-color: #f4f6f7;
+        --text-color: #333;
+        --border-color: #e0e4e8;
+        --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-.table td, .table th {
-    padding: 12px 15px;
-}
+    /* Cart Page Styles */
+    .cart-container {
+        background-color: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: var(--card-shadow);
+        max-width: 900px;
+        margin: 2rem auto;
+    }
 
-/* Button styling */
-.btn-lg {
-    font-size: 1.25rem;
-    padding: 10px 20px;
-}
+    .cart-title {
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        border-bottom: 3px solid var(--secondary-color);
+        padding-bottom: 0.5rem;
+    }
 
-.table th, .table td {
-    vertical-align: middle;
-}
+    .cart-table {
+        border-radius: 8px;
+        overflow: hidden;
+    }
 
-/* Input fields for quantity */
-.form-control {
-    max-width: 100px;
-}
+        .cart-table thead {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .cart-table th, .cart-table td {
+            vertical-align: middle !important;
+            padding: 15px;
+            border-color: var(--border-color);
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-table tbody tr:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+    .cart-quantity-input {
+        max-width: 100px;
+        text-align: center;
+        border: 2px solid var(--border-color);
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+
+        .cart-quantity-input:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        }
+
+    .cart-total {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        text-align: right;
+        margin-top: 1rem;
+    }
+
+    .cart-empty-message {
+        background-color: #f8f9fa;
+        border-left: 4px solid var(--secondary-color);
+        padding: 1rem;
+        margin: 1rem 0;
+        color: var(--text-color);
+        border-radius: 4px;
+    }
+
+    /* Confirmation Page Styles */
+    .confirmation-container {
+        background-color: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: var(--card-shadow);
+        max-width: 700px;
+        margin: 2rem auto;
+    }
+
+    .confirmation-title {
+        color: var(--accent-color);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .confirmation-subtitle {
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .confirmation-list {
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+    }
+
+    .confirmation-list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid var(--border-color);
+        transition: background-color 0.3s ease;
+    }
+
+        .confirmation-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .confirmation-list-item:hover {
+            background-color: rgba(46, 204, 113, 0.05);
+        }
+
+    .confirmation-total {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-align: right;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Button Styles */
+    .btn-cart-update,
+    .btn-cart-remove,
+    .btn-purchase-confirm {
+        border-radius: 6px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .btn-cart-update {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+    }
+
+        .btn-cart-update:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+
+    .btn-cart-remove {
+        background-color: #e74c3c;
+        border-color: #e74c3c;
+    }
+
+        .btn-cart-remove:hover {
+            background-color: #c0392b;
+            border-color: #c0392b;
+        }
+
+    .btn-purchase-confirm {
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
+        width: 100%;
+    }
+
+        .btn-purchase-confirm:hover {
+            background-color: #27ae60;
+            border-color: #27ae60;
+        }
+
+    /* Responsive Adjustments */
+   
+    
+</style>

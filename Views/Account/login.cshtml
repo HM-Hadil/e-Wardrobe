@@ -1,39 +1,136 @@
 ﻿@model e_commercedotNet.Models.User
-
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Connexion";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h2 class="text-center mb-4">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Connexion
+            </h2>
+        </div>
 
-<!-- Affichage des messages -->
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger" role="alert">
-        @TempData["ErrorMessage"]
+        <!-- Messages de notification -->
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <!-- Formulaire de connexion -->
+        <form method="post" asp-action="Login" asp-controller="Account" class="login-form">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingEmail" name="email" placeholder="nom@exemple.com" required />
+                <label for="floatingEmail">
+                    <i class="bi bi-envelope me-2"></i>Adresse email
+                </label>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Mot de passe" required />
+                <label for="floatingPassword">
+                    <i class="bi bi-lock me-2"></i>Mot de passe
+                </label>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Se connecter
+                </button>
+            </div>
+
+            <div class="text-center mt-3">
+                <p class="text-muted">
+                    Pas de compte ?
+                    <a asp-controller="Account" asp-action="Register" class="text-primary">
+                        Créez en un
+                    </a>
+                </p>
+                <a href="#" class="text-muted small">Mot de passe oublié ?</a>
+            </div>
+        </form>
     </div>
-}
+</div>
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success" role="alert">
-        @TempData["SuccessMessage"]
-    </div>
-}
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 200px);
+        background-color: #f4f6f9;
+    }
 
-<!-- Formulaire de connexion -->
-<form method="post" asp-action="Login" asp-controller="Account">
-    <div class="form-group">
-        <label for="Email">Email</label>
-        <input type="email" class="form-control" name="email" required />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
+    .login-card {
+        width: 100%;
+        max-width: 400px;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
 
-    <div class="form-group">
-        <label for="Password">Mot de passe</label>
-        <input type="password" class="form-control" name="password" required />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
+        .login-card:hover {
+            transform: translateY(-5px);
+        }
 
-    <button type="submit" class="btn btn-primary">Se connecter</button>
-</form>
+    .login-header {
+        margin-bottom: 1.5rem;
+    }
+
+        .login-header h2 {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+    .login-form .form-floating > label {
+        color: #7f8c8d;
+        transition: all 0.3s ease;
+    }
+
+    .login-form .form-control:focus {
+        box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+        border-color: #3498db;
+    }
+
+        .login-form .form-control:focus + label {
+            color: #3498db;
+        }
+
+    .btn-primary {
+        background-color: #3498db;
+        border-color: #3498db;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+    .login-form a {
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+        .login-form a:hover {
+            color: #2980b9;
+        }
+</style>

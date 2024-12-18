@@ -4,49 +4,355 @@
     ViewData["Title"] = "List of Products";
 }
 
-<h2>@ViewData["Title"]</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Stock Quantity</th>
-            <th>Category</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var product in Model.Products)
-        {
+<div class="product-list-container">
+    <h2 class="product-list-title">@ViewData["Title"]</h2>
+
+    <table class="table product-table">
+        <thead>
             <tr>
-                <td>@product.Name</td>
-                <td>@product.Description</td>
-                <td>@product.Price</td>
-                <td>@product.StockQuantity</td>
-                <td>@product.Category</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@product.ProductId" class="btn btn-primary">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@product.ProductId" class="btn btn-danger">Delete</a>
-                </td>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock Quantity</th>
+                <th>Category</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var product in Model.Products)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Description</td>
+                    <td>@product.Price €</td>
+                    <td>@product.StockQuantity</td>
+                    <td>@product.Category</td>
+                    <td>
+                        <div class="product-action-buttons">
+                            <a asp-action="Edit" asp-route-id="@product.ProductId" class="btn btn-product-edit">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@product.ProductId" class="btn btn-product-delete">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<div>
-    <span>Page @Model.CurrentPage of @Model.TotalPages</span>
-    <br />
-    @for (var i = 1; i <= Model.TotalPages; i++)
-    {
-        if (i == Model.CurrentPage)
-        {
-            <span>[<b>@i</b>]</span>
-        }
-        else
-        {
-            <a asp-action="ListProduct" asp-route-page="@i">[ @i ]</a>
-        }
-    }
+    <div class="pagination-container">
+        <span class="pagination-info">Page @Model.CurrentPage of @Model.TotalPages</span>
+        <div class="pagination-links">
+            @for (var i = 1; i <= Model.TotalPages; i++)
+            {
+                if (i == Model.CurrentPage)
+                {
+                    <span class="pagination-current">@i</span>
+                }
+                else
+                {
+                    <a asp-action="ListProduct" asp-route-page="@i" class="pagination-link">@i</a>
+                }
+            }
+        </div>
+    </div>
 </div>
+<style>
+    /* Color Palette and Global Variables */
+    :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --accent-color: #2ecc71;
+        --background-color: #f4f6f7;
+        --text-color: #333;
+        --border-color: #e0e4e8;
+        --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Container and Page Layout */
+    .product-list-container {
+        background-color: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: var(--card-shadow);
+        margin: 2rem auto;
+        max-width: 1200px;
+    }
+
+    /* Page Title */
+    .product-list-title {
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 3px solid var(--secondary-color);
+        text-align: center;
+    }
+
+    /* Table Styling */
+    .product-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+    }
+
+        .product-table thead {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .product-table th,
+        .product-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s ease;
+        }
+
+        .product-table tbody tr:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        .product-table thead th {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+    /* Action Buttons */
+    .product-action-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .btn-product-edit,
+    .btn-product-delete {
+        border-radius: 6px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+    }
+
+    .btn-product-edit {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: white;
+    }
+
+        .btn-product-edit:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+
+    .btn-product-delete {
+        background-color: #e74c3c;
+        border-color: #e74c3c;
+        color: white;
+    }
+
+        .btn-product-delete:hover {
+            background-color: #c0392b;
+            border-color: #c0392b;
+        }
+
+    /* Pagination Styling */
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+        background-color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .pagination-info {
+        margin-right: 1rem;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .pagination-links {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .pagination-link {
+        text-decoration: none;
+        color: var(--secondary-color);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+        .pagination-link:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+    .pagination-current {
+        font-weight: 700;
+        color: var(--primary-color);
+        background-color: rgba(52, 152, 219, 0.1);
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+    }
+
+  
+</style>
+
+<style>
+    /* Color Palette and Global Variables */
+    :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --accent-color: #2ecc71;
+        --background-color: #f4f6f7;
+        --text-color: #333;
+        --border-color: #e0e4e8;
+        --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Container and Page Layout */
+    .product-list-container {
+        background-color: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: var(--card-shadow);
+        margin: 2rem auto;
+        max-width: 1200px;
+    }
+
+    /* Page Title */
+    .product-list-title {
+        color: var(--primary-color);
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 3px solid var(--secondary-color);
+        text-align: center;
+    }
+
+    /* Table Styling */
+    .product-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+    }
+
+        .product-table thead {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .product-table th,
+        .product-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s ease;
+        }
+
+        .product-table tbody tr:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        .product-table thead th {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+    /* Action Buttons */
+    .product-action-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .btn-product-edit,
+    .btn-product-delete {
+        border-radius: 6px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+    }
+
+    .btn-product-edit {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: white;
+    }
+
+        .btn-product-edit:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+        }
+
+    .btn-product-delete {
+        background-color: #e74c3c;
+        border-color: #e74c3c;
+        color: white;
+    }
+
+        .btn-product-delete:hover {
+            background-color: #c0392b;
+            border-color: #c0392b;
+        }
+
+    /* Pagination Styling */
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+        background-color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .pagination-info {
+        margin-right: 1rem;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    .pagination-links {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .pagination-link {
+        text-decoration: none;
+        color: var(--secondary-color);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+    }
+
+        .pagination-link:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+    .pagination-current {
+        font-weight: 700;
+        color: var(--primary-color);
+        background-color: rgba(52, 152, 219, 0.1);
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+    }
+
+</style>

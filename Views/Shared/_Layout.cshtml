@@ -12,49 +12,200 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-light bg-primary shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">e_commercedotNet</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand text-white fw-bold" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-shop me-2"></i>E-Commerce
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house-door me-1"></i>Accueil
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Inscription</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Product" asp-action="Index">
+                                <i class="bi bi-collection me-1"></i>Produits
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Connexion</a>
-                        </li>
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">
-                            <i class="bi bi-cart"></i>
-                            Panier
-                            (<span id="cart-count" style="color: red; font-weight: bold;">@ViewBag.CartItemCount</span>)
-                        </a>
-
-
                         
-                       
+                        <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">
+                                <i class="bi bi-collection me-1"></i>Politique de confidentialité
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <ul class="navbar-nav align-items-center">
+                        <!-- Panier -->
+                        <li class="nav-item me-3">
+                            <a class="nav-link text-white position-relative" asp-area="" asp-controller="Cart" asp-action="Index">
+                                <i class="bi bi-cart fs-4"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-count">
+                                    @(ViewBag.CartItemCount ?? 0)
+                                    <span class="visually-hidden">articles dans le panier</span>
+                                </span>
+                            </a>
+                        </li>
+
+                        <!-- Menu Utilisateur -->
+                        @if (!User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="btn btn-outline-light me-2" asp-area="" asp-controller="Account" asp-action="Register">
+                                    <i class="bi bi-person-plus me-1"></i>Inscription
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-light" asp-area="" asp-controller="Account" asp-action="Login">
+                                    <i class="bi bi-box-arrow-in-right me-1"></i>Connexion
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-person-circle me-1"></i>Mon Compte
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Profile">
+                                            <i class="bi bi-person me-2"></i>Profil
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form method="post" action="@Url.Action("Logout", "Account")">
+                                            <button type="submit" class="dropdown-item">
+                                                <i class="bi bi-box-arrow-right me-2"></i>Déconnexion
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="bg-dark text-white py-5">
         <div class="container">
-            &copy; 2024 - e_commercedotNet - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>À propos de nous</h5>
+                    <p class="text-muted">Votre boutique en ligne de référence proposant les meilleurs produits avec un service client exceptionnel.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Liens rapides</h5>
+                    <ul class="list-unstyled">
+                        <li><a asp-controller="Home" asp-action="Index" class="text-white text-decoration-none">Accueil</a></li>
+                        <li><a asp-controller="Product" asp-action="Index" class="text-white text-decoration-none">Catalogue</a></li>
+                        <li><a asp-controller="Account" asp-action="Profile" class="text-white text-decoration-none">Mon Compte</a></li>
+                        <li><a asp-controller="Home" asp-action="Privacy" class="text-white text-decoration-none">Politique de confidentialité</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contactez-nous</h5>
+                    <p>
+                        <i class="bi bi-envelope"></i> contact@votresite.com<br>
+                        <i class="bi bi-telephone"></i> 01 23 45 67 89<br>
+                        <i class="bi bi-geo-alt"></i> 123 Rue de l'E-Commerce, Paris
+                    </p>
+                    <div class="social-icons">
+                        <a href="#" class="text-white me-2"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white me-2"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-white me-2"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 bg-secondary">
+            <div class="row">
+                <div class="col text-center">
+                    <p class="mb-0">&copy; @DateTime.Now.Year Votre Boutique E-Commerce. Tous droits réservés.</p>
+                </div>
+            </div>
         </div>
     </footer>
+<style>
+      
+
+      
+        .navbar {
+            background: linear-gradient(135deg, #2c3e50, #34495e) !important;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ecf0f1 !important;
+            transition: transform 0.2s ease;
+        }
+
+            .navbar-brand:hover {
+                transform: scale(1.05);
+                color: #ffffff !important;
+            }
+
+        .nav-link {
+            position: relative;
+            color: #bdc3c7 !important;
+            transition: all 0.3s ease;
+        }
+
+            .nav-link:hover {
+                color: #ffffff !important;
+                transform: translateY(-2px);
+            }
+
+            .nav-link::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                bottom: -3px;
+                left: 0;
+                background-color: #3498db;
+                visibility: hidden;
+                transform: scaleX(0);
+                transition: all 0.3s ease-in-out;
+            }
+
+            .nav-link:hover::after {
+                visibility: visible;
+                transform: scaleX(1);
+            }
+
+        #cart-count {
+            font-size: 0.6rem;
+            padding: 0.2em 0.4em;
+            background-color: #e74c3c !important;
+        }
+
+        .navbar-toggler {
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+</style>
    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

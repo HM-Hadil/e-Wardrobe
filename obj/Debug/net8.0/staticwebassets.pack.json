@@ -17,8 +17,52 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\runtime.jpg",
-      "PackagePath": "staticwebassets\\images\\runtime.jpg"
+      "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\pic1.jpeg",
+      "PackagePath": "staticwebassets\\images\\pic1.jpeg"
+    },
+    {
+      "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\pic11.jpeg",
+      "PackagePath": "staticwebassets\\images\\pic11.jpeg"
+    },
+    {
+      "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\pic12.jpeg",
+      "PackagePath": "staticwebassets\\images\\pic12.jpeg"
+    },
+    {
+      "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\pic13.jpeg",
+      "PackagePath": "staticwebassets\\images\\pic13.jpeg"
+    },
+    {
+      "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\pic14.jpeg",
+      "PackagePath": "staticwebassets\\images\\pic14.jpeg"
+    },
+    {
+      "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\pic2.jpeg",
+      "PackagePath": "staticwebassets\\images\\pic2.jpeg"
+    },
+    {
+      "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\pic3.jpeg",
+      "PackagePath": "staticwebassets\\images\\pic3.jpeg"
+    },
+    {
+      "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\pic4.jpeg",
+      "PackagePath": "staticwebassets\\images\\pic4.jpeg"
+    },
+    {
+      "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\pic5.jpeg",
+      "PackagePath": "staticwebassets\\images\\pic5.jpeg"
+    },
+    {
+      "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\pic6.jpeg",
+      "PackagePath": "staticwebassets\\images\\pic6.jpeg"
+    },
+    {
+      "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\pic7.jpeg",
+      "PackagePath": "staticwebassets\\images\\pic7.jpeg"
+    },
+    {
+      "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\pic8.jpeg",
+      "PackagePath": "staticwebassets\\images\\pic8.jpeg"
     },
     {
       "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\js\\site.js",
