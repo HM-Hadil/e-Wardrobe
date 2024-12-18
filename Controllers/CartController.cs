@@ -253,7 +253,6 @@ namespace e_commercedotNet.Controllers
                 return RedirectToAction("Login", "Account");
             }
 
-            // Récupérer les articles du panier
             var cartItems = await _context.CartItems
                 .Include(ci => ci.Product)
                 .Where(ci => ci.UserId == userId)
@@ -265,13 +264,11 @@ namespace e_commercedotNet.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Nettoyer le panier
             _context.CartItems.RemoveRange(cartItems);
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Votre commande a été confirmée.";
 
-            // Redirection vers la page d'accueil
             return RedirectToAction("Index", "Home");
         }
     }

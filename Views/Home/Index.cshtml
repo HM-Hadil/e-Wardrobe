@@ -7,15 +7,7 @@
     var priceMaxFilter = ViewData["PriceMax"]?.ToString();
 }
 
-@{
-    var errorMessage = TempData["ErrorMessage"] as string;
-}
-@if (!string.IsNullOrEmpty(errorMessage))
-{
-    <div class="alert alert-danger">
-        @errorMessage
-    </div>
-}
+
 
 <div class="text-center" style="margin-top:2rem">
     <h1 class="display-4">Welcome to Our Product Store</h1>

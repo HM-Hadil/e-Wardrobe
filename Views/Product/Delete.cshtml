@@ -1,22 +1,144 @@
 ﻿@model e_commercedotNet.Models.Product
-
 @{
     ViewData["Title"] = "Supprimer le produit";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="delete-product-container">
+    <div class="delete-product-card">
+        <div class="delete-header text-center mb-4">
+            <i class="bi bi-exclamation-triangle-fill text-danger" style="font-size: 4rem;"></i>
+            <h2 class="mt-3">@ViewData["Title"]</h2>
+        </div>
 
-<h3>Êtes-vous sûr de vouloir supprimer ce produit ?</h3>
-<div>
-    <p><strong>Nom:</strong> @Model.Name</p>
-    <p><strong>Description:</strong> @Model.Description</p>
-    <p><strong>Prix:</strong> @Model.Price €</p>
-    <p><strong>Quantité:</strong> @Model.StockQuantity</p>
-    <p><strong>Catégorie:</strong> @Model.Category</p>
+        <div class="product-details">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="card-title">
+                                <i class="bi bi-tag me-2"></i>Détails du Produit
+                            </h5>
+                            <hr />
+                            <dl class="row">
+                                <dt class="col-sm-4">Nom:</dt>
+                                <dd class="col-sm-8">@Model.Name</dd>
+
+                                <dt class="col-sm-4">Prix:</dt>
+                                <dd class="col-sm-8">
+                                    <span class="badge bg-primary">@Model.Price.ToString("C2")</span>
+                                </dd>
+
+                                <dt class="col-sm-4">Catégorie:</dt>
+                                <dd class="col-sm-8">
+                                    <span class="badge bg-secondary">@Model.Category</span>
+                                </dd>
+
+                                <dt class="col-sm-4">Stock:</dt>
+                                <dd class="col-sm-8">
+                                    <span class="badge bg-info">@Model.StockQuantity</span>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="card-title">
+                                <i class="bi bi-file-text me-2"></i>Description
+                            </h5>
+                            <hr />
+                            <p class="text-muted">@Model.Description</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-danger" role="alert">
+                <i class="bi bi-shield-exclamation me-2"></i>
+                <strong>Attention !</strong> Cette action est irréversible. Voulez-vous vraiment supprimer ce produit ?
+            </div>
+
+            <form asp-action="Delete" class="delete-form">
+                <input type="hidden" asp-for="ProductId" />
+
+                <div class="d-flex justify-content-center gap-3">
+                    <button type="submit" class="btn btn-danger btn-lg">
+                        <i class="bi bi-trash me-2"></i>Confirmer la suppression
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary btn-lg">
+                        <i class="bi bi-x-circle me-2"></i>Annuler
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
-<form asp-action="Delete">
-    <input type="hidden" asp-for="ProductId" />
-    <button type="submit" class="btn btn-danger">Supprimer</button>
-    <a asp-action="Index" class="btn btn-secondary">Annuler</a>
-</form>
+<style>
+    .delete-product-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 200px);
+        background-color: #f4f6f9;
+        padding: 2rem 0;
+    }
+
+    .delete-product-card {
+        width: 100%;
+        max-width: 800px;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+        .delete-product-card:hover {
+            transform: translateY(-5px);
+        }
+
+    .delete-header {
+        color: #2c3e50;
+    }
+
+        .delete-header i {
+            animation: pulse 1.5s infinite;
+        }
+
+    
+
+    .product-details .card {
+        border: 1px solid #e0e0e0;
+        transition: box-shadow 0.3s ease;
+    }
+
+        .product-details .card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+    .btn-danger {
+        background-color: #e74c3c;
+        border-color: #c0392b;
+        transition: all 0.3s ease;
+    }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+    .btn-secondary {
+        background-color: #95a5a6;
+        border-color: #7f8c8d;
+        transition: all 0.3s ease;
+    }
+
+        .btn-secondary:hover {
+            background-color: #7f8c8d;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+    .badge {
+        font-size: 0.9em;
+    }
+</style>

@@ -26,20 +26,17 @@ namespace e_commercedotNet.Controllers
         }
 
 
-        // GET: Account/Register
         [HttpGet("Register")]
         public IActionResult Register()
         {
             return View();
         }
 
-        // POST: Account/Register
         [HttpPost("Register")]
         public IActionResult Register(User user)
         {
             if (ModelState.IsValid)
             {
-                // Ajouter l'utilisateur à la base de données
                 _context.Users.Add(user);
                 _context.SaveChanges();
 
@@ -50,7 +47,6 @@ namespace e_commercedotNet.Controllers
             return View(user);
         }
 
-        // GET: Account/Login
         [HttpGet("Login")]
         public IActionResult Login()
         {
@@ -81,15 +77,12 @@ namespace e_commercedotNet.Controllers
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
-            // Ajout de l'ID utilisateur à la session
             HttpContext.Session.SetString("UserId", user.id.ToString());
 
-            // Redirection vers la page Profile
             return RedirectToAction("Profile", "Account");
         }
 
 
-        // GET: Account/Profile
         [HttpGet("Profile")]
         public IActionResult Profile()
         {
@@ -110,7 +103,6 @@ namespace e_commercedotNet.Controllers
             return View(user);
         }
 
-        // POST: Account/Profile
         [HttpPost("Profile")]
         public IActionResult Profile(User updatedUser)
         {
@@ -146,7 +138,6 @@ namespace e_commercedotNet.Controllers
         [HttpPost("UpdateProfile")]
         public IActionResult UpdateProfile(User updatedUser)
         {
-            // Vérifier que l'utilisateur est connecté
             var email = User.Identity?.Name;
             if (string.IsNullOrEmpty(email))
             {
@@ -159,31 +150,25 @@ namespace e_commercedotNet.Controllers
                 return NotFound();
             }
 
-            // Mettre à jour les informations de l'utilisateur
             user.Nom = updatedUser.Nom;
             user.Prenom = updatedUser.Prenom;
             user.Email = updatedUser.Email;
 
-            // Si un mot de passe a été fourni, le mettre à jour
             if (!string.IsNullOrEmpty(updatedUser.Password))
             {
-                user.Password = updatedUser.Password;  // Assurez-vous de hasher le mot de passe avant de le stocker
+                user.Password = updatedUser.Password; 
             }
 
-            // Sauvegarder les modifications dans la base de données
             _context.SaveChanges();
 
-            // Message de confirmation
             TempData["SuccessMessage"] = "Votre profil a été mis à jour avec succès!";
             return RedirectToAction("Profile");
         }
         [HttpPost("Logout")]
         public async Task<IActionResult> Logout()
         {
-            // Déconnexion de l'utilisateur
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            // Redirection vers la page d'accueil après la déconnexion
             return RedirectToAction("Index", "Home");
         }
 

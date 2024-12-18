@@ -13,6 +13,7 @@ wwwroot\images\pic5.jpeg
 wwwroot\images\pic6.jpeg
 wwwroot\images\pic7.jpeg
 wwwroot\images\pic8.jpeg
+wwwroot\images\profile pic.jpeg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

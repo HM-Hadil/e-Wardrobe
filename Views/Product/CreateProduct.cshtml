@@ -1,61 +1,232 @@
 ﻿@model e_commercedotNet.Models.Product
-
 @{
     ViewData["Title"] = "Ajouter un produit";
 }
 
-<h2>@ViewData["Title"]</h2>
+<div class="add-product-container">
+    <div class="product-card">
+        <div class="product-header">
+            <h2 class="text-center mb-4">
+                <i class="bi bi-plus-circle me-2"></i>Ajouter un nouveau produit
+            </h2>
+        </div>
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success" role="alert">
-        @TempData["SuccessMessage"]
+        <!-- Messages de notification -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <!-- Formulaire d'ajout de produit -->
+        <form asp-action="Create" method="post" enctype="multipart/form-data" class="add-product-form" id="productForm">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-floating">
+                        <input asp-for="Name" class="form-control" id="floatingName" placeholder="Nom du produit" required />
+                        <label for="floatingName">
+                            <i class="bi bi-tag me-2"></i>Nom du produit
+                        </label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-floating">
+                        <select asp-for="Category" class="form-select" id="floatingCategory" required>
+                            <option value="">Sélectionnez une catégorie</option>
+                            <option value="Homme">Homme</option>
+                            <option value="Femme">Femme</option>
+                        
+                        </select>
+                        <label for="floatingCategory">
+                            <i class="bi bi-collection me-2"></i>Catégorie
+                        </label>
+                        <span asp-validation-for="Category" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-floating mb-3">
+                <textarea asp-for="Description" class="form-control" id="floatingDescription" placeholder="Description du produit" style="height: 100px" required></textarea>
+                <label for="floatingDescription">
+                    <i class="bi bi-text-paragraph me-2"></i>Description du produit
+                </label>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-floating">
+                        <input asp-for="Price" class="form-control" id="floatingPrice" type="number" step="0.01" min="0" placeholder="Prix" required />
+                        <label for="floatingPrice">
+                            <i class="bi bi-currency-euro me-2"></i>Prix
+                        </label>
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-floating">
+                        <input asp-for="StockQuantity" class="form-control" id="floatingStock" type="number" min="0" placeholder="Stock" required />
+                        <label for="floatingStock">
+                            <i class="bi bi-box-seam me-2"></i>Quantité en stock
+                        </label>
+                        <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="imageUpload" class="form-label">
+                    <i class="bi bi-image me-2"></i>Image du produit
+                </label>
+                <div class="image-upload-container">
+                    <input asp-for="ImageUrl" class="form-control" type="file" id="imageUpload" name="imageFile" accept="image/*" />
+                    <div class="image-preview-container mt-3" id="imagePreview">
+                        <img id="previewImage" src="#" alt="Aperçu de l'image" class="img-fluid" style="display:none;" />
+                    </div>
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="confirmDetails" required>
+                <label class="form-check-label" for="confirmDetails">
+                    Je confirme que tous les détails du produit sont corrects
+                </label>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="bi bi-plus-circle me-2"></i>Ajouter le produit
+                </button>
+            </div>
+        </form>
     </div>
-}
+</div>
 
-<form asp-action="Create" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="Name" class="form-label"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
+<style>
+    .add-product-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 200px);
+        background-color: #f4f6f9;
+        padding: 2rem 0;
+    }
 
-    <div class="form-group">
-        <label asp-for="Description" class="form-label"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
+    .product-card {
+        width: 100%;
+        max-width: 700px;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
 
-    <div class="form-group">
-        <label asp-for="Price" class="form-label"></label>
-        <input asp-for="Price" class="form-control" type="number" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
 
-    <div class="form-group">
-        <label asp-for="StockQuantity" class="form-label"></label>
-        <input asp-for="StockQuantity" class="form-control" type="number" />
-        <span asp-validation-for="StockQuantity" class="text-danger"></span>
-    </div>
+    .product-header h2 {
+        color: #2c3e50;
+        font-weight: bold;
+    }
 
-    <div class="form-group">
-        <label asp-for="Category" class="form-label"></label>
-        <select asp-for="Category" class="form-control">
-            <option value="Homme">Homme</option>
-            <option value="Femme">Femme</option>
-        </select>
-        <span asp-validation-for="Category" class="text-danger"></span>
-    </div>
+    .add-product-form .form-floating > label,
+    .add-product-form .form-label {
+        color: #7f8c8d;
+        transition: all 0.3s ease;
+    }
 
-    <div class="form-group">
-        <label asp-for="ImageUrl" class="form-label"></label>
-        <input asp-for="ImageUrl" class="form-control" type="file" name="imageFile" />
-        <span asp-validation-for="ImageUrl" class="text-danger"></span>
-    </div>
+    .add-product-form .form-control:focus,
+    .add-product-form .form-select:focus {
+        box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+        border-color: #3498db;
+    }
 
-    <button type="submit" class="btn btn-primary">Ajouter</button>
-</form>
+        .add-product-form .form-control:focus + label,
+        .add-product-form .form-select:focus + label {
+            color: #3498db;
+        }
+
+    .image-upload-container {
+        background-color: #f8f9fa;
+        border: 2px dashed #ced4da;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        transition: background-color 0.3s ease;
+    }
+
+        .image-upload-container:hover {
+            background-color: #e9ecef;
+        }
+
+    #previewImage {
+        max-height: 300px;
+        object-fit: contain;
+        border-radius: 8px;
+        margin-top: 15px;
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        border-color: #3498db;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+</style>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Image preview functionality
+            const imageUpload = document.getElementById('imageUpload');
+            const previewImage = document.getElementById('previewImage');
+
+            imageUpload.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                        previewImage.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Form validation
+            const form = document.getElementById('productForm');
+            form.addEventListener('submit', function(event) {
+                const price = document.getElementById('floatingPrice');
+                const stock = document.getElementById('floatingStock');
+
+                if (parseFloat(price.value) < 0) {
+                    event.preventDefault();
+                    price.setCustomValidity('Le prix ne peut pas être négatif');
+                    price.reportValidity();
+                    return;
+                }
+
+                if (parseInt(stock.value) < 0) {
+                    event.preventDefault();
+                    stock.setCustomValidity('La quantité en stock ne peut pas être négative');
+                    stock.reportValidity();
+                    return;
+                }
+            });
+        });
+    </script>
 }

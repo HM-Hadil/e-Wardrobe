@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Y1/vetRuSkafB8OP3amYmwcHgeYLXSmoBttWt7gUsAY=",
+  "Hash": "LCieFAdiB1+rDtt3JYBdt1xPhN0m+OOgLzVqr2QPCfI=",
   "Source": "e-commercedotNet",
   "BasePath": "_content/e-commercedotNet",
   "Mode": "Default",
@@ -372,6 +372,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\pic8.jpeg"
+    },
+    {
+      "Identity": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\profile pic.jpeg",
+      "SourceId": "e-commercedotNet",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\",
+      "BasePath": "_content/e-commercedotNet",
+      "RelativePath": "images/profile pic#[.{fingerprint}]?.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "vuftncestq",
+      "Integrity": "eQM3LeojnIuRmPZ599EMjIgldyR1cZfvbQl2rueZxjk=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\profile pic.jpeg"
     },
     {
       "Identity": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\js\\site.js",
@@ -2984,6 +3005,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-vZoBzzB9GBJC/qMq+iw8ick+ScJzwAjR/tQZbp+zRTA="
+        }
+      ]
+    },
+    {
+      "Route": "images/profile pic.jpeg",
+      "AssetFile": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\profile pic.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "43970"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eQM3LeojnIuRmPZ599EMjIgldyR1cZfvbQl2rueZxjk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 18 Dec 2024 15:03:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-eQM3LeojnIuRmPZ599EMjIgldyR1cZfvbQl2rueZxjk="
+        }
+      ]
+    },
+    {
+      "Route": "images/profile pic.vuftncestq.jpeg",
+      "AssetFile": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\profile pic.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "43970"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eQM3LeojnIuRmPZ599EMjIgldyR1cZfvbQl2rueZxjk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 18 Dec 2024 15:03:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "vuftncestq"
+        },
+        {
+          "Name": "label",
+          "Value": "images/profile pic.jpeg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-eQM3LeojnIuRmPZ599EMjIgldyR1cZfvbQl2rueZxjk="
         }
       ]
     },

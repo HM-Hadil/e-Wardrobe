@@ -65,6 +65,10 @@
       "PackagePath": "staticwebassets\\images\\pic8.jpeg"
     },
     {
+      "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\images\\profile pic.jpeg",
+      "PackagePath": "staticwebassets\\images\\profile pic.jpeg"
+    },
+    {
       "Id": "C:\\e-commercedotNet\\e-commercedotNet\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

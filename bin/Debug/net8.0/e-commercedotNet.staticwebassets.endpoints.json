@@ -1315,6 +1315,88 @@
       ]
     },
     {
+      "Route": "images/profile pic.jpeg",
+      "AssetFile": "images/profile pic.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "43970"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eQM3LeojnIuRmPZ599EMjIgldyR1cZfvbQl2rueZxjk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 18 Dec 2024 15:03:24 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-eQM3LeojnIuRmPZ599EMjIgldyR1cZfvbQl2rueZxjk="
+        }
+      ]
+    },
+    {
+      "Route": "images/profile pic.vuftncestq.jpeg",
+      "AssetFile": "images/profile pic.jpeg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "43970"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"eQM3LeojnIuRmPZ599EMjIgldyR1cZfvbQl2rueZxjk=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 18 Dec 2024 15:03:24 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "vuftncestq"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-eQM3LeojnIuRmPZ599EMjIgldyR1cZfvbQl2rueZxjk="
+        },
+        {
+          "Name": "label",
+          "Value": "images/profile pic.jpeg"
+        }
+      ]
+    },
+    {
       "Route": "js/site.js",
       "AssetFile": "js/site.js",
       "Selectors": [],
